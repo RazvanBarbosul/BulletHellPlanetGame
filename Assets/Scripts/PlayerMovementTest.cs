@@ -12,9 +12,14 @@ public class PlayerMovementTest : MonoBehaviour {
     float jumpRest = 0.05f;
     private Transform myTransform;
     public GravityAttractor _GravityAtrtractor;
+    public GravityBody meteorPrefab;
+    public MeteorScript spawn;
+   
 
     RaycastHit hit;
     private float distToGround;
+    public bool canMine = false;
+    public float ore = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -44,7 +49,28 @@ public class PlayerMovementTest : MonoBehaviour {
             jumpRestRemaining = jumpRest;
             GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * jumpSpeed * 100);
         }
-	}
+
+        if (canMine && meteorPrefab)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                //particle system
+
+                //add ore to player
+                ore += 10f;
+                meteorPrefab.oreAmount -= 10f;
+
+                //destroy meteor
+                
+            }
+        }
+
+        if (meteorPrefab.oreAmount == 0f)
+        {
+            meteorPrefab.DestroyMeteor();
+            canMine = false;
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -52,6 +78,28 @@ public class PlayerMovementTest : MonoBehaviour {
         if (_GravityAtrtractor)
         {
             _GravityAtrtractor.Attract(myTransform);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Meteor")
+        {
+            Debug.Log("Meteor");
+            //ADD Mining
+            canMine = true;
+             
+
+           
+        }
+       
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Meteor")
+        {
+            canMine = false;
         }
     }
 }

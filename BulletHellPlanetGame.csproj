@@ -89,6 +89,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GravityAttractor.cs" />
     <Compile Include="Assets\Scripts\GravityBody.cs" />
+    <Compile Include="Assets\Scripts\MeteorScript.cs" />
+    <Compile Include="Assets\Scripts\Mining.cs" />
     <Compile Include="Assets\Scripts\PlayerMovementTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
